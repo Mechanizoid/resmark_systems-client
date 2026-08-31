@@ -16,7 +16,8 @@ Gem::Specification.new do |spec|
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/Mechanizoid/resmark_systems-client"
-  spec.metadata["changelog_uri"] = "https://github.com/resmark_systems-client/blob/main/CHANGELOG.md"
+  spec.metadata["changelog_uri"] = "https://github.com/Mechanizoid/resmark_systems-client/blob/main/CHANGELOG.md"
+  spec.licenses = "LGPL-3.0-or-later"
 
   # Uncomment the line below to require MFA for gem pushes.
   # This helps protect your gem from supply chain attacks by ensuring
