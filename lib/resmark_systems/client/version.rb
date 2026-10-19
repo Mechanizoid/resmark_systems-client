@@ -19,7 +19,7 @@
 # with this program. If not, see <https://www.gnu.org/licenses/>
 
 module ResmarkSystems
-  module Client
+  class Client
     VERSION = "0.1.0"
   end
 end

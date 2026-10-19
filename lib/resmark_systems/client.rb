@@ -18,11 +18,20 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with this program. If not, see <https://www.gnu.org/licenses/>
 
-require_relative "client/version"
-
 module ResmarkSystems
-  module Client
+  # Client object for interacting with Resmark Systems API
+  class Client
     class Error < StandardError; end
-    # Your code goes here...
+
+    attr_reader :api_key, :api_user
+
+    def initialize(api_user, api_key)
+      @api_user = api_user
+      @api_key = api_key
+    end
+
+    def say_hello
+      puts "Hello #{api_user}, your api key is #{api_key}."
+    end
   end
 end
