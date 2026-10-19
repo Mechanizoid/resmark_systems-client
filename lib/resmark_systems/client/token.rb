@@ -26,10 +26,12 @@ module ResmarkSystems
   class Client
     # Handles retrieving an API Token
     class Token
+      include ResmarkSystems::Utils::PathHelper
+
       API_TOKEN_TIMEOUT = 85800
 
       def initialize(base_url, api_user, api_key)
-        @uri = auth_endpoint(base_url)
+        @uri = build_uri(base_url, "authenticate")
         @request_body = {
           username: api_user,
           apikey: api_key
@@ -58,16 +60,6 @@ module ResmarkSystems
 
       def expired?
         Time.now - @timestamp > API_TOKEN_TIMEOUT
-      end
-
-      def auth_endpoint(base_url)
-        uri = URI.parse(base_url)
-        uri.path = [uri.path, "authenticate"].map { |p| p.split("/") }
-                                             .flatten
-                                             .reject(&:empty?)
-                                             .join("/")
-                                             .prepend("/")
-        uri
       end
     end
   end

@@ -20,8 +20,6 @@
 
 require "net/http"
 
-require_relative "client/token"
-
 module ResmarkSystems
   # Client object for interacting with Resmark Systems API
   class Client
