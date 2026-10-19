@@ -18,6 +18,10 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with this program. If not, see <https://www.gnu.org/licenses/>
 
+require "net/http"
+
+require_relative "client/token"
+
 module ResmarkSystems
   # Client object for interacting with Resmark Systems API
   class Client
