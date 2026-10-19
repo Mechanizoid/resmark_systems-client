@@ -28,7 +28,7 @@ module ResmarkSystems
     class Token
       include ResmarkSystems::Utils::PathHelper
 
-      API_TOKEN_TIMEOUT = 85800
+      API_TOKEN_TIMEOUT = 85_800 # 24 hours minus 10 min in seconds
 
       def initialize(base_url, api_user, api_key)
         @uri = build_uri(base_url, "authenticate")
