@@ -27,6 +27,7 @@ module ResmarkSystems
     # Handles retrieving an API Token
     class Token
       include ResmarkSystems::Utils::PathHelper
+      include ResmarkSystems::Utils::HttpErrors
 
       attr_reader :timestamp
 
@@ -53,11 +54,22 @@ module ResmarkSystems
 
       private
 
-      def fetch
-        res = Net::HTTP.post(@uri, @request_body.to_json,
-                             {"Content-Type": "application/json"})
-        @token = res.body
-        @timestamp = Time.now
+      def fetch # rubocop:disable Metrics/MethodLength
+        response = Net::HTTP.post(@uri, @request_body.to_json,
+                                  { "Content-Type": "application/json" })
+
+        if response.is_a?(Net::HTTPSuccess)
+          @token = response.body
+          @timestamp = Time.now
+        else
+          handle_http_error(response)
+        end
+      rescue *NETWORK_ERRORS => e
+        raise ResmarkSystems::ConnectionError, "Network error: #{e.message}"
+      rescue *TIMEOUT_ERRORS => e
+        raise ResmarkSystems::TimeoutError, "Timeout reaching API: #{e.message}"
+      rescue *PROTOCOL_ERRORS => e
+        raise ResmarkSystems::ProtocolError, "Protocol/Syntax error: #{e.message}"
       end
 
       def expired?

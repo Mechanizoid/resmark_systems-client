@@ -24,7 +24,40 @@ module ResmarkSystems
 
   # Specific errors inheriting from my base error
   class ConnectionError < Error; end
-  class AuthenticationError < Error; end
-  class ResponseError < Error; end
-  class RateLimitError < Error; end
+  class TimeoutError < Error; end
+  class ProtocolError < Error; end
+
+  # Parent class for HTTP status errors
+  class ClientError < Error
+    attr_reader :response, :status_code
+
+    def initialize(response)
+      @response = response
+      @status_code = response.code.to_i
+      super("HTTP #{@status_code}: #{response.message}")
+    end
+  end
+
+  # Errors to represent HTTP error status codes
+  # 400 Bad Request
+  class BadRequestError < ClientError; end
+  # 401 Unauthorized
+  class UnauthorizedError < ClientError; end
+  # 403 Forbidden
+  class ForbiddenError < ClientError; end
+  # 404 Not Found
+  class NotFoundError < ClientError; end
+  # 429 Too Many Requests
+  class RateLimitError < ClientError; end
+
+  # Class for server errors (status code 5xx)
+  class ServerError < Error
+    attr_reader :response, :status_code
+
+    def initialize(response)
+      @response = response
+      @status_code = response.code.to_i
+      super("Server error #{@status_code}: #{response.message}")
+    end
+  end
 end

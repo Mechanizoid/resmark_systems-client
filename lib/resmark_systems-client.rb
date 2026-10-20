@@ -21,9 +21,9 @@
 require_relative "resmark_systems/client/version"
 require_relative "resmark_systems/errors"
 require_relative "resmark_systems/utils/path_helper"
+require_relative "resmark_systems/utils/http_errors"
 require_relative "resmark_systems/client"
 require_relative "resmark_systems/client/token"
-
 
 # Primary module for resmark_systems/client
 module ResmarkSystems
