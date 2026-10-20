@@ -23,8 +23,6 @@ require "net/http"
 module ResmarkSystems
   # Client object for interacting with Resmark Systems API
   class Client
-    class Error < StandardError; end
-
     attr_reader :api_key, :api_user
 
     def initialize(api_base_url, api_user, api_key)
