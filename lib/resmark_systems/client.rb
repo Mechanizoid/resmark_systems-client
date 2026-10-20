@@ -27,13 +27,17 @@ module ResmarkSystems
 
     attr_reader :api_key, :api_user
 
-    def initialize(api_user, api_key)
+    def initialize(api_base_url, api_user, api_key)
+      @api_base_url = api_base_url
       @api_user = api_user
       @api_key = api_key
+      @token = ResmarkSystems::Client::Token.new(api_base_url, api_user, api_key)
     end
 
     def say_hello
       puts "Hello #{api_user}, your api key is #{api_key}."
+      puts "URL: #{@api_base_url}"
+      puts "Token: #{@token.value}"
     end
   end
 end
