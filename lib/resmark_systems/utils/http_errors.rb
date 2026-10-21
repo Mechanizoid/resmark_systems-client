@@ -11,6 +11,7 @@ module ResmarkSystems # :nodoc:
         Errno::ECONNREFUSED,
         Errno::ECONNRESET,
         Errno::EHOSTUNREACH,
+        Errno::ETIMEDOUT,
         EOFError,
         SocketError
       ].freeze
