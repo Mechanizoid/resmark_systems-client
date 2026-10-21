@@ -25,16 +25,19 @@ module ResmarkSystems
   class Client
     attr_reader :api_key, :api_user
 
-    def initialize(api_base_url, api_user, api_key)
-      @api_base_url = api_base_url
-      @api_user = api_user
-      @api_key = api_key
-      @token = ResmarkSystems::Client::Token.new(api_base_url, api_user, api_key)
+    def initialize(user:, key:,
+                   host: "sandbox.resmarksystems.com",
+                   path: "/public/api")
+      @api_base_uri = URI::HTTPS.build(host: host, path: path)
+      @api_user = user
+      @api_key = key
+      @token = ResmarkSystems::Client::Token.new(@api_base_uri, @api_user,
+                                                 @api_key)
     end
 
     def say_hello
       puts "Hello #{api_user}, your api key is #{api_key}."
-      puts "URL: #{@api_base_url}"
+      puts "URL: #{@api_base_uri}"
       puts "Token: #{@token.value}"
     end
   end

@@ -25,13 +25,13 @@ module ResmarkSystems # :nodoc:
   module Utils
     # Utility module for building the path for API endpoints
     module PathHelper
-      def build_uri(base_url, path)
-        uri = URI.parse(base_url)
-        uri.path = [uri.path, path].map { |p| p.split("/") }
-                                   .flatten
-                                   .reject(&:empty?)
-                                   .join("/")
-                                   .prepend("/")
+      def build_uri(original_uri, path)
+        uri = original_uri.dup
+        uri.path = [original_uri.path, path].map { |p| p.split("/") }
+                                            .flatten
+                                            .reject(&:empty?)
+                                            .join("/")
+                                            .prepend("/")
         uri
       end
     end

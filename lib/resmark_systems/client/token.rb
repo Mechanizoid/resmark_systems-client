@@ -33,8 +33,8 @@ module ResmarkSystems
 
       API_TOKEN_TIMEOUT = 85_800 # 24 hours minus 10 min in seconds
 
-      def initialize(base_url, api_user, api_key)
-        @uri = build_uri(base_url, "authenticate")
+      def initialize(base_uri, api_user, api_key)
+        @uri = build_uri(base_uri, "authenticate")
         @request_body = {
           username: api_user,
           apikey: api_key
