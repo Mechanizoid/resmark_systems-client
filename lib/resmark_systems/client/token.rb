@@ -31,7 +31,9 @@ module ResmarkSystems
 
       attr_reader :timestamp
 
-      API_TOKEN_TIMEOUT = 85_800 # 24 hours minus 10 min in seconds
+      TOKEN_LIFETIME = 86_400 # Resmark API tokens last 24 hours
+      TOKEN_REPLACE_BUFFER = 600 # replace token if it expires within 10 minutes
+      TOKEN_TIMEOUT = TOKEN_LIFETIME - TOKEN_REPLACE_BUFFER
 
       def initialize(base_uri, api_user, api_key)
         @uri = build_uri(base_uri, "authenticate")
@@ -41,6 +43,10 @@ module ResmarkSystems
         }
 
         fetch
+      end
+
+      def expires_at
+        @timestamp + TOKEN_LIFETIME
       end
 
       def value
@@ -73,7 +79,7 @@ module ResmarkSystems
       end
 
       def expired?
-        Time.now - @timestamp > API_TOKEN_TIMEOUT
+        Time.now - @timestamp > TOKEN_TIMEOUT
       end
     end
   end
