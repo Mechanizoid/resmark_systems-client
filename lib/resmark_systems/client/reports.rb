@@ -21,7 +21,7 @@
 module ResmarkSystems
   class Client
     # Resource class for report API endpoints
-    class Report
+    class Reports
       def initialize(client)
         @client = client
       end

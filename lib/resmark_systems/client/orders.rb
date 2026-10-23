@@ -21,7 +21,7 @@
 module ResmarkSystems
   class Client
     # Resource class for order API endpoints
-    class Order
+    class Orders
       def initialize(client)
         @client = client
       end

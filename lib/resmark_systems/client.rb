@@ -40,11 +40,11 @@ module ResmarkSystems
     end
 
     def order
-      @order ||= ResmarkSystems::Client::Order.new(self)
+      @order ||= ResmarkSystems::Client::Orders.new(self)
     end
 
     def report
-      @report ||= ResmarkSystems::Client::Report.new(self)
+      @report ||= ResmarkSystems::Client::Reports.new(self)
     end
 
     def say_hello

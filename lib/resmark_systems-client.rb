@@ -25,8 +25,8 @@ require_relative "resmark_systems/utils/http_errors"
 require_relative "resmark_systems/connection"
 require_relative "resmark_systems/client"
 require_relative "resmark_systems/client/token"
-require_relative "resmark_systems/client/order"
-require_relative "resmark_systems/client/report"
+require_relative "resmark_systems/client/orders"
+require_relative "resmark_systems/client/reports"
 
 # Primary module for resmark_systems/client
 module ResmarkSystems
