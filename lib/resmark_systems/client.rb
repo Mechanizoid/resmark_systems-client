@@ -18,12 +18,12 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with this program. If not, see <https://www.gnu.org/licenses/>
 
-require "net/http"
+require "uri"
 
 module ResmarkSystems
   # Client object for interacting with Resmark Systems API
   class Client
-    attr_reader :host, :path, :user, :api_key, :token
+    attr_reader :connection, :host, :path, :user, :api_key, :token
 
     def initialize(user:, key:,
                    host: "sandbox.resmarksystems.com",
@@ -31,9 +31,20 @@ module ResmarkSystems
       @host = host
       @user = user
       @api_key = key
+      @path = path
       @api_base_uri = URI::HTTPS.build(host: host, path: path)
       @token = ResmarkSystems::Client::Token.new(@api_base_uri, @user,
                                                  @api_key)
+      @connection = ResmarkSystems::Connection.new(host: @host, path: @path,
+                                                   token: @token)
+    end
+
+    def order
+      @order ||= ResmarkSystems::Client::Order.new(self)
+    end
+
+    def report
+      @report ||= ResmarkSystems::Client::Report.new(self)
     end
 
     def say_hello
