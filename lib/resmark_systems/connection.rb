@@ -60,6 +60,8 @@ module ResmarkSystems
 
     def delete; end # todo
 
+    private
+
     def request(req)
       response = Net::HTTP.start(@host, use_ssl: true) do |http|
         http.request(req)
