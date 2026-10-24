@@ -61,9 +61,19 @@ module ResmarkSystems
     def delete; end # todo
 
     def request(req)
-      Net::HTTP.start(@host, use_ssl: true) do |http|
+      response = Net::HTTP.start(@host, use_ssl: true) do |http|
         http.request(req)
       end
+
+      handle_http_error(response) unless response.is_a?(Net::HTTPSuccess)
+
+      response
+    rescue *NETWORK_ERRORS => e
+      raise ResmarkSystems::ConnectionError, "Network error: #{e.message}"
+    rescue *TIMEOUT_ERRORS => e
+      raise ResmarkSystems::TimeoutError, "Timeout reaching API: #{e.message}"
+    rescue *PROTOCOL_ERRORS => e
+      raise ResmarkSystems::ProtocolError, "Protocol/Syntax error: #{e.message}"
     end
   end
 end
